@@ -1,0 +1,10 @@
+.imageContainer {
+    grid-area: imageContainer;
+    width: 90%;
+    height: 90%;
+}
+
+.imageContainer .image {
+    max-width: 95%;
+    max-height: 95%;
+}

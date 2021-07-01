@@ -1,0 +1,43 @@
+.homeContainer {
+    width: 100vw;
+    height: 100vh;
+    background-color: rgb(250, 250, 250);
+    color: rgb(41, 41, 41);
+    display: grid;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    grid-template-columns: 300px auto;
+    grid-template-rows: auto;
+    grid-template-areas: 
+    "leftNav mainDisplay"
+    ;
+    /* overflow: hidden; */
+}
+
+.leftNavContainer {
+    grid-area: leftNav;
+    padding: 10px;
+    border-right: 1px solid rgba(0, 0, 0, 0.3);
+    box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.2);
+    height: 100vh;
+}
+
+.leftNavContainer h2 {
+    text-align: center;
+    margin-bottom: 10px;
+    font-size: 20px;
+}
+
+.mainDisplay {
+    grid-area: mainDisplay;
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: 50% 50%;
+    grid-template-rows: 10% 40% 40%;
+    grid-template-areas: 
+    "title title"
+    "description imageContainer"
+    "amenities ."
+    ;
+
+}

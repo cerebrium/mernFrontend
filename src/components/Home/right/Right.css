@@ -1,0 +1,10 @@
+.contentTitle {
+    grid-area: title;
+    text-align: center;
+    margin: 10px;
+    font-size: 25px;
+}
+
+.topContainer {
+    display: flex;
+}

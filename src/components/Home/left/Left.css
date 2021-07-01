@@ -1,0 +1,30 @@
+.leftContentContainer {
+    height: 90%;
+    overflow: auto;
+}
+
+.leftContentContainer::-webkit-scrollbar {
+    width: 6px; 
+}
+  
+.leftContentContainer::-webkit-scrollbar-track {
+    background: rgb(250, 250, 250);  
+}
+  
+.leftContentContainer::-webkit-scrollbar-thumb {
+    background-color: rgb(41, 41, 41);   
+    border-radius: 10px;    
+    border: none; 
+}
+
+.leftContentContainer p {
+    margin: 5px;
+    cursor: pointer;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.0);
+    width: 90%;
+}
+.leftContentContainer p:hover {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.6);
+    color: rgb(65, 64, 64);
+    transition: 1s;
+}

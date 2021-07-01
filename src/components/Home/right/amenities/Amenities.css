@@ -1,0 +1,21 @@
+.amenities {
+    grid-area: amenities;
+    width: 95%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    margin: 0 auto;
+}
+
+.amenities h2 {
+    font-size: 20px;
+    margin: 0px 0px 5px 0px;
+}
+
+.amenities ul {
+    list-style-type: circle;
+    margin-left: 25px;
+    columns: 3;
+    -webkit-columns: 3;
+    -moz-columns: 3;
+}
