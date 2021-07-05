@@ -1,10 +1,9 @@
 import React, { useMemo } from 'react'
-import { Amenities } from '../../../../../types'
 import './Amenities.css'
 
 
 interface PropType {
-  content: Array<Amenities> | undefined
+  content: Array<string> | undefined
 }
 
 

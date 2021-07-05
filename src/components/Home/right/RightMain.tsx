@@ -1,12 +1,12 @@
 import React, { useMemo, useEffect } from 'react'
-import { Listing } from '../../../../types'
+import { ApolloListing } from '../../../../types'
 import Description from './description/Description'
 import Amenities from './amenities/Amenities'
 import Image from './image/Image'
 import './Right.css'
 
 interface PropType {
-  selectedListing: Listing | undefined
+  selectedListing: ApolloListing | undefined
 }
 
 const RightMain = (props: PropType) => {
@@ -30,7 +30,7 @@ const RightMain = (props: PropType) => {
         <>
           {title}
           <Description content={props.selectedListing.description} />
-          <Image img={props.selectedListing.images.picture_url}/>
+          <Image img={props.selectedListing.image}/>
           <Amenities content={props.selectedListing.amenities} />
         </>
       )
