@@ -28,7 +28,7 @@ const Description = (props: PropType) => {
   }, [props.content])
 
   return (
-    <div className="description">
+    <div className="descriptionRight">
       <h2>Description</h2>
       <h3>{memoizedDescription}</h3>
     </div>

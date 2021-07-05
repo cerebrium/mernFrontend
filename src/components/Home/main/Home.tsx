@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import LeftNav from '../left/LeftNav'
 import RightMain from '../right/RightMain'
+import Nav from '../../nav/Nav'
 import { ApolloListing } from '../../../../types'
 import './home.css'
 
@@ -23,6 +24,9 @@ const Home = (props: PropType) => {
 
   return (
     <div className="homeContainer">
+      <div className="navContainer">
+        <Nav />
+      </div>
       <div className='leftNavContainer'>
         <h2>Listings</h2>
         <LeftNav

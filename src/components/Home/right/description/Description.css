@@ -1,4 +1,4 @@
-.description {
+.descriptionRight {
     grid-area: description;
     width: 90%;
     height: 90%;
@@ -6,14 +6,16 @@
     flex-direction: column;
     margin: 0 auto;
     text-align: left;
+    overflow: auto;
+    border: none;
 }
 
-.description h2 {
+.descriptionRight h2 {
     font-size: 20px;
     margin: 0px 0px 5px 0px;
 }
 
-.description ul {
+.descriptionRight ul {
     list-style-type: circle;
     margin-left: 25px;
 }
