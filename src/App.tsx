@@ -17,6 +17,7 @@ import {
 const getListings = gql`
   query getApartments {
     getApartments {
+      _id
       name
       email
       location
@@ -39,14 +40,13 @@ function App() {
     getListings
   )
 
-
   return (
     loading ? <>'loading'</> : 
       <Router>
         <Route exact path="/" render={ () => <Home listings={data?.getApartments}/>}></Route>
         <Route exact path="/create" render={() => <Create listings={data?.getApartments}/>}></Route>
-        <Route exact path="/update" render={() => <Update listings={data?.getApartments}/>}></Route>
-        <Route exact path="/delete" render={() => <Delete listings={data?.getApartments}/>}></Route>
+        <Route path="/update/:id" render={() => <Update listings={data?.getApartments}/>}></Route>
+        <Route path="/delete/:id" render={() => <Delete listings={data?.getApartments}/>}></Route>
       </Router>
   );
 }

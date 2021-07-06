@@ -19,16 +19,6 @@ const Nav = () => {
             Create
         </Link>
       </div>
-      <div className='link'>
-        <Link to='/update' className='linkText'>
-              Update
-        </Link>
-      </div>
-      <div className='link'>
-        <Link to='/delete' className='linkText'>
-            Delete
-        </Link>
-      </div>
     </div>
   )
 }

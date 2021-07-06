@@ -1,9 +1,13 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import LeftNav from '../left/LeftNav'
 import RightMain from '../right/RightMain'
 import Nav from '../../nav/Nav'
 import { ApolloListing } from '../../../../types'
 import './home.css'
+import {
+  BrowserRouter as Router,
+  Link
+} from "react-router-dom";
 
 interface PropType {
   listings: Array<ApolloListing> | undefined
@@ -35,6 +39,10 @@ const Home = (props: PropType) => {
         />
       </div>
       <div className="mainDisplay">
+        <div className='buttonContainer'>
+          {selectedListing ? <Link to={`/update/${selectedListing._id}`} className='linkText' id='edit'><button className='editButton'>Edit</button></Link> : null}
+          {selectedListing ? <Link to='/delete' className='linkText' id='delete'><button className='deleteButton'>Delete</button></Link> : null}
+        </div>
         <RightMain
           selectedListing={selectedListing}
         />

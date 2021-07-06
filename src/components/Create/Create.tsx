@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { ApolloListing } from '../../../types'
 import Nav from '../nav/Nav'
 import './Create.css'
@@ -11,9 +11,10 @@ interface PropType {
   listings: Array<ApolloListing> | undefined
 }
 
-  // create query
-  const ADD_APARTMENT = gql`
-    mutation addApartment($name: String!, $email: String!, $location: String!, $image: String!, $description: String!, $amenities: [String]!) {
+// create mutation
+const ADD_APARTMENT = gql`
+  mutation addApartment($name: String!, $email: String!, $location: String!, $image: String!, $description: String!, $amenities: [String]!) {
+    addApartment(name: $name, email: $email, location: $location, image: $image, description: $description, amenities: $amenities) {
       name
       email
       location
@@ -21,7 +22,8 @@ interface PropType {
       amenities
       description
     }
-  `
+  }
+  `;
 
 const Create = (props: PropType) => {
   const [description, setDescription] = useState<string>('')
@@ -34,27 +36,24 @@ const Create = (props: PropType) => {
   // add apartment mutation
   const [addApartmentReact, {data}] = useMutation(ADD_APARTMENT)
 
-
   const handleSubmit = () => {
-    console.log('submitting')
-    let amenitiesArray: Array<string> = amenities.length > 0 ? amenities.split(" ") : []
-
-    // add the apartment
-    addApartmentReact(
-      {
-        variables:
+    let amenitiesArray: Array<string> = amenities.length > 0 ? amenities.split(",") : []
+    if (name.length > 1 && email.length > 1 && location.length > 1 && image.length > 1 && description.length > 1 && amenities.length > 1) {
+      // add the apartment
+      addApartmentReact(
         {
-          name: name,
-          email: email,
-          location: location,
-          image: image,
-          description: description,
-          amenities: amenitiesArray,
+          variables:
+          {
+            name: name,
+            email: email,
+            location: location,
+            image: image,
+            description: description,
+            amenities: amenitiesArray,
+          }
         }
-      }
-    ).then(response => {
-      console.log(response)
-    })
+      )
+    }
   }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -91,27 +90,27 @@ const Create = (props: PropType) => {
           <label>
             Name
           </label>
-          <input type='text' defaultValue={name} id='name'/>
+          <input type='text' defaultValue={name} id='name' required/>
           <label>
             Email
           </label>
-          <input type='text' defaultValue={email} id='email'/>
+          <input type='text' defaultValue={email} id='email' required/>
           <label>
             Location
           </label>
-          <input type='text' defaultValue={location} id='location'/>
+          <input type='text' defaultValue={location} id='location' required/>
           <label>
             Image
           </label>
-          <input type='text' defaultValue={image} id='image'/>
+          <input type='text' defaultValue={image} id='image' required/>
           <label>
             Description
           </label>
-          <textarea defaultValue={description} className='description' id='description'/>
+          <textarea defaultValue={description} className='description' id='description' required/>
           <label>
-            Amenities
+            Amenities (seperate by commas)
           </label>
-          <input type='text' defaultValue={amenities} id='amenities' />
+          <textarea defaultValue={amenities} id='amenities' required/>
           <button onClick={() => handleSubmit()}>
             Submit
           </button>

@@ -1,4 +1,5 @@
 export interface ApolloListing {
+  _id: string,
   name: string,
   email: string,
   location: string,
