@@ -3,7 +3,7 @@ import './Left.css'
 import { ApolloListing, Listings } from '../../../../types'
 
 interface PropType {
-  listings: Array<ApolloListing> | undefined
+  listings: Array<ApolloListing> | null
   returnListing: (e: React.SyntheticEvent, arg0: ApolloListing) => any;
 }
 
@@ -13,11 +13,10 @@ const LeftNav = (props: PropType) => {
   // display the categories
   useEffect(() => {
     if (props.listings) {
-      console.log(props.listings)
       setNames(props.listings.map((listing, listingId) => {
         // define the name
-        let name = listing.name
-    
+        let name = listing.name ? listing.name : 'test'
+
         // grab the title
         let stringToReturn = name.split(" ")
     

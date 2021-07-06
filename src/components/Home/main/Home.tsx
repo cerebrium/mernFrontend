@@ -8,15 +8,26 @@ import {
   BrowserRouter as Router,
   Link
 } from "react-router-dom";
+import { useSelector } from 'react-redux';
+import { 
+  selectListings,
+} from '../../../features/ListingsSlice'
 
-interface PropType {
-  listings: Array<ApolloListing> | undefined
-}
-
-const Home = (props: PropType) => {
+const Home = () => {
   // local state
   const [selectedListing, setSelectedListing] = useState<ApolloListing>()
+  const [listingArray, setListingArray] = useState<Array<ApolloListing>>([])
   
+  // redux state
+  const listings = useSelector(selectListings)
+
+  // make the arrays for children
+  useEffect(() => {
+    if (listings) {
+      setListingArray(Object.values(listings))
+    }
+  }, [listings])
+
   // function to return the selected listing
   const returnListing = (e: React.SyntheticEvent, listing: ApolloListing) => {
     // prevent bubbling
@@ -34,14 +45,14 @@ const Home = (props: PropType) => {
       <div className='leftNavContainer'>
         <h2>Listings</h2>
         <LeftNav
-          listings={props.listings}
+          listings={Array.from(listingArray)}
           returnListing={(e: React.SyntheticEvent, listing: ApolloListing) => returnListing(e, listing)}
         />
       </div>
       <div className="mainDisplay">
         <div className='buttonContainer'>
           {selectedListing ? <Link to={`/update/${selectedListing._id}`} className='linkText' id='edit'><button className='editButton'>Edit</button></Link> : null}
-          {selectedListing ? <Link to='/delete' className='linkText' id='delete'><button className='deleteButton'>Delete</button></Link> : null}
+          {selectedListing ? <Link to={`/delete/${selectedListing._id}`} className='linkText' id='delete'><button className='deleteButton'>Delete</button></Link> : null}
         </div>
         <RightMain
           selectedListing={selectedListing}

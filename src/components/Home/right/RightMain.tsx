@@ -11,11 +11,6 @@ interface PropType {
 
 const RightMain = (props: PropType) => {
 
-  // see the data
-  useEffect(() => {
-    console.log(props.selectedListing)
-  }, [props.selectedListing])
-
   // map the data to the components
   // display the categories
   const memoizedContent = useMemo(() => {

@@ -11,3 +11,7 @@ export interface ApolloListing {
 export interface Listings {
   listings: Array<ApolloListing>
 }
+
+export interface ReduxListings {
+  [key: string]: ApolloListing
+}

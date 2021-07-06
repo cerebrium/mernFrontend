@@ -8,6 +8,8 @@ import {
   InMemoryCache,
   ApolloProvider,
 } from "@apollo/client";
+import { Provider } from 'react-redux'
+import store from './app/store'
 
 const client = new ApolloClient({
   uri: 'http://localhost:4000/graphql',
@@ -16,9 +18,11 @@ const client = new ApolloClient({
 
 ReactDOM.render(
   <ApolloProvider client={client}>
-    <React.StrictMode>
-      <App />
-    </React.StrictMode>
+    <Provider store={store}>
+      <React.StrictMode>
+        <App />
+      </React.StrictMode>
+    </Provider>
   </ApolloProvider>,
   document.getElementById('root')
 );

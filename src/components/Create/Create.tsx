@@ -1,20 +1,45 @@
 import React, { useState, useEffect } from 'react'
-import { ApolloListing } from '../../../types'
+import { ApolloListing, ReduxListings } from '../../../types'
 import Nav from '../nav/Nav'
 import './Create.css'
 import {
   useMutation,
   gql
 } from "@apollo/client";
+import { useSelector, useDispatch } from 'react-redux';
+import { 
+  selectListings,
+  updateListing
+} from '../../features/ListingsSlice'
+import {
+  BrowserRouter as Router,
+  Link
+} from "react-router-dom";
 
-interface PropType {
-  listings: Array<ApolloListing> | undefined
+// type query as array
+interface Data {
+  listings: Array<ApolloListing>
+};
+
+// hashing function
+const hasher = (array: Data): ReduxListings => {
+  // instantiate the hash
+  let hash: ReduxListings = {}
+
+  // loop through and set key => uuid
+  array.listings.forEach(listing => {
+    hash[listing._id] = listing
+  })
+
+  // return the hash
+  return hash
 }
 
 // create mutation
 const ADD_APARTMENT = gql`
   mutation addApartment($name: String!, $email: String!, $location: String!, $image: String!, $description: String!, $amenities: [String]!) {
     addApartment(name: $name, email: $email, location: $location, image: $image, description: $description, amenities: $amenities) {
+      _id
       name
       email
       location
@@ -25,13 +50,18 @@ const ADD_APARTMENT = gql`
   }
   `;
 
-const Create = (props: PropType) => {
+const Create = () => {
   const [description, setDescription] = useState<string>('')
   const [name, setName] = useState<string>('')
   const [location, setLocation] = useState<string>('')
   const [image, setImage] = useState<string>('')
   const [amenities, setAmenities] = useState<string>('')
   const [email, setEmail] = useState<string>('')
+  const [returnPage, setReturnPage] = useState<JSX.Element>()
+
+  // redux state
+  const listings = useSelector(selectListings)
+  const dispatch = useDispatch()
 
   // add apartment mutation
   const [addApartmentReact, {data}] = useMutation(ADD_APARTMENT)
@@ -55,6 +85,24 @@ const Create = (props: PropType) => {
       )
     }
   }
+
+  useEffect(() => {
+    if (data) {
+      // create array to push to redux
+      let arrayToAdd = [...Object.values(listings), data.addApartment]
+
+      // turn array into hash
+      let hash = hasher({ listings: arrayToAdd })
+
+      dispatch(updateListing(hash))
+
+      setReturnPage(
+        <div className='returnPage'>
+          <Link to='/' ><button>Return</button></Link>
+        </div>
+      )
+    }
+  }, [data])
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     switch (e.target.id) {
@@ -85,6 +133,7 @@ const Create = (props: PropType) => {
         <Nav />
       </div>
       <div className='content'>
+        {returnPage}
         <h1>Create A New Apartment Listing</h1>
         <div onChange={handleChange} className='formContainer'>
           <label>
